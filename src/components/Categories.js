@@ -1,7 +1,74 @@
 import React from "react";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 
 function Categories() {
-  return <div>Categories</div>;
+  const items = [
+    {
+      image: require("../assets/images/bread.png"),
+      text: "Bread",
+    },
+    {
+      image: require("../assets/images/coffee.png"),
+      text: "Coffee",
+    },
+    {
+      image: require("../assets/images/deals.png"),
+      text: "Deals",
+    },
+    {
+      image: require("../assets/images/desserts.png"),
+      text: "Desserts",
+    },
+    {
+      image: require("../assets/images/fast-food.png"),
+      text: "Fast food",
+    },
+    {
+      image: require("../assets/images/shopping-bag.png"),
+      text: "Shopping",
+    },
+    {
+      image: require("../assets/images/soft-drink.png"),
+      text: "Drinks",
+    },
+  ];
+  return (
+    <View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.categories}
+      >
+        {items.map((el) => (
+          <View style={styles.categoriesItem} key={el.text}>
+            <Image source={el.image} style={styles.categorieImg} />
+            <Text>{el.text}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  categories: {
+    // backgroundColor: "white",
+    marginVertical: 16,
+  },
+  categoriesItem: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    borderRadius: 6,
+    width: 92,
+    height: 92,
+    margin: 4,
+  },
+  categorieImg: {
+    width: 60,
+    height: 60,
+  },
+});
 
 export default Categories;
