@@ -6,7 +6,9 @@ const RestaurentItem = ({ data }) => {
   return (
     <View style={styles.item}>
       <TouchableOpacity activeOpacity={0.8}>
-        <Image source={data.image} style={styles.image} />
+        {data.image_url && (
+          <Image source={{ uri: data.image_url }} style={styles.image} />
+        )}
         <View style={styles.info}>
           <Text style={styles.title}>{data.name}</Text>
           <View style={styles.row}>
@@ -23,7 +25,7 @@ const RestaurentItem = ({ data }) => {
                   {data.rating}
                 </Text>
                 <Text style={{ fontSize: 12, marginLeft: 4, color: "#C9CCD5" }}>
-                  ({data.reviews})
+                  ({data.review_count})
                 </Text>
               </View>
             </View>
@@ -50,7 +52,7 @@ const RestaurentList = ({ list }) => {
   return (
     <View style={styles.list}>
       {list.map((el) => (
-        <RestaurentItem data={el} key={el.name} />
+        <RestaurentItem data={el} key={el.id} />
       ))}
     </View>
   );

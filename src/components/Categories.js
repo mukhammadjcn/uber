@@ -64,6 +64,8 @@ const styles = StyleSheet.create({
     // backgroundColor: "white",
     marginVertical: 16,
     paddingHorizontal: 12,
+    zIndex: 2,
+    elevation: 2,
   },
   categoriesItem: {
     flexDirection: "column",

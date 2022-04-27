@@ -1,14 +1,46 @@
-import { StyleSheet, View, ScrollView } from "react-native";
-import React from "react";
+import { StyleSheet, View, ScrollView, Text } from "react-native";
+import React, { useState, useEffect } from "react";
 import HeaderTabs from "../components/HeaderTabs";
 import SearchBar from "../components/SearchBar";
 import Categories from "../components/Categories";
 import RestaurentList from "../components/RestaurentList";
-import Restaurents from "../assets/data/restaurants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import axios from "axios";
+import Loading from "../components/Loading";
+import NoData from "../components/NoData";
 
 export default function Home() {
+  const [restaurants, setRestaurants] = useState();
   const insets = useSafeAreaInsets();
+  const [query, setQuery] = useState("usa");
+  const [loading, setLoading] = useState(false);
+
+  const getResturantsFromYelp = async (city) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.get(
+        `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`,
+        {
+          headers: {
+            Authorization: `Bearer jnwUOhBB1J4uxGN9EBq9jKaR9YNh5_ZsfgL-IIhJQ5I-7k1Um1i6J-Rau7dgn4YoGp0bLAhxYINn3dYkFHIBz1P8mUYMgjb-F9x-0RrU96uo1KR1R0qVu5mfDGlPYnYx`,
+          },
+        }
+      );
+      setRestaurants(data.businesses);
+    } catch {
+      setRestaurants([]);
+    }
+    setLoading(false);
+  };
+  const getQuery = (data) => {
+    setQuery(data.terms[0].value);
+    getResturantsFromYelp(query);
+  };
+
+  useEffect(() => {
+    getResturantsFromYelp("London");
+  }, []);
+
   return (
     <View style={[styles.body(insets.bottom)]}>
       {/* Header */}
@@ -17,7 +49,7 @@ export default function Home() {
         <HeaderTabs />
 
         {/* Search bar */}
-        <SearchBar />
+        <SearchBar getQuery={getQuery} />
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -25,7 +57,15 @@ export default function Home() {
         <Categories />
 
         {/* Restaurent List */}
-        <RestaurentList list={Restaurents} />
+        {!loading ? (
+          restaurants && restaurants.length > 0 ? (
+            <RestaurentList list={restaurants} />
+          ) : (
+            <NoData />
+          )
+        ) : (
+          <Loading />
+        )}
       </ScrollView>
     </View>
   );
@@ -42,5 +82,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     borderRadius: 12,
     marginHorizontal: 12,
+    zIndex: 3,
+    elevation: 3,
   },
 });
