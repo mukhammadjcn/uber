@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 
 function Categories() {
   const items = [
@@ -37,13 +44,15 @@ function Categories() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={styles.categories}
+        contentContainerStyle={styles.categories}
       >
         {items.map((el) => (
-          <View style={styles.categoriesItem} key={el.text}>
-            <Image source={el.image} style={styles.categorieImg} />
-            <Text>{el.text}</Text>
-          </View>
+          <TouchableOpacity activeOpacity={0.8} key={el.text}>
+            <View style={styles.categoriesItem}>
+              <Image source={el.image} style={styles.categorieImg} />
+              <Text>{el.text}</Text>
+            </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
@@ -54,6 +63,7 @@ const styles = StyleSheet.create({
   categories: {
     // backgroundColor: "white",
     marginVertical: 16,
+    paddingHorizontal: 12,
   },
   categoriesItem: {
     flexDirection: "column",

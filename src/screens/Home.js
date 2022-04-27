@@ -1,13 +1,16 @@
-import { SafeAreaView, StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import React from "react";
 import HeaderTabs from "../components/HeaderTabs";
 import SearchBar from "../components/SearchBar";
 import Categories from "../components/Categories";
-import RestaurentItem from "../components/RestaurentItem";
+import RestaurentList from "../components/RestaurentList";
+import Restaurents from "../assets/data/restaurants";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Home() {
+  const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView style={styles.body}>
+    <View style={[styles.body(insets.bottom)]}>
       {/* Header */}
       <View style={styles.main}>
         {/* Header tabs */}
@@ -21,22 +24,23 @@ export default function Home() {
         {/* Categories list */}
         <Categories />
 
-        {/* Restaurent item */}
-        <RestaurentItem />
+        {/* Restaurent List */}
+        <RestaurentList list={Restaurents} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  body: {
+  body: (bottom) => ({
     backgroundColor: "#eee",
-    paddingHorizontal: 12,
     flex: 1,
-  },
+    paddingBottom: bottom,
+  }),
   main: {
     backgroundColor: "white",
     marginTop: 12,
     borderRadius: 12,
+    marginHorizontal: 12,
   },
 });

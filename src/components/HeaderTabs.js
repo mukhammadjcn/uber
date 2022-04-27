@@ -19,6 +19,7 @@ export default function HeaderTabs() {
 const HeaderButton = (props) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.5}
       onPress={() => props.setTab(props.name)}
       style={[styles.tab, props.tab == props.name ? styles.tabActive : ""]}
     >
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     text: {
       color: "black",
       fontSize: 16,
-      fontWeight: "bold",
+      fontFamily: "Feather",
     },
   },
   tabActive: {

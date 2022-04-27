@@ -11,10 +11,10 @@ export default function SearchBar() {
       </View>
       <GooglePlacesAutocomplete placeholder="Search" styles={styles.input} />
       <View style={styles.right}>
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.5}>
           <Ionicons name="close-circle" size={20} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.5}>
           <Text style={styles.searchBtn}>Search</Text>
         </TouchableOpacity>
       </View>
