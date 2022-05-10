@@ -1,11 +1,16 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const RestaurentItem = ({ data }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.item}>
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("Restaurant")}
+      >
         {data.image_url && (
           <Image source={{ uri: data.image_url }} style={styles.image} />
         )}

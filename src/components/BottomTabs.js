@@ -37,24 +37,37 @@ export default function BottomTabs({ page, setPage }) {
       }}
     >
       {navigation.map((el) => (
-        <Icon icon={el.icon} text={el.text} />
+        <Icon
+          icon={el.icon}
+          text={el.text}
+          page={page}
+          setPage={setPage}
+          key={el.text}
+        />
       ))}
     </View>
   );
 }
 
-const Icon = ({ icon, text }) => (
-  <TouchableOpacity activeOpacity={0.8} onPress={() => alert(text)}>
+const Icon = ({ icon, text, page, setPage }) => (
+  <TouchableOpacity activeOpacity={0.8} onPress={() => setPage(text)}>
     <View>
       <Ionicons
         name={icon}
         size={25}
         style={{
-          marginBottom: 5,
+          paddingBottom: 5,
           alignSelf: "center",
         }}
       />
-      <Text>{text}</Text>
+      <Text
+        style={[
+          page == text ? { fontFamily: "Feather" } : "",
+          { paddingBottom: 8 },
+        ]}
+      >
+        {text}
+      </Text>
     </View>
   </TouchableOpacity>
 );
