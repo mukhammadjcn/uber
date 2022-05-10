@@ -5,7 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function SearchBar({ getQuery }) {
   const query = {
-    key: "AIzaSyBJrHm5bnHCthxbxf5ZnuZvB56jnNN4a5I",
+    key: "AIzaSyD8uz4_YNEc-obhIbo9BaHUxktKYQcXqxM",
     language: "en",
   };
   const ref = useRef();
