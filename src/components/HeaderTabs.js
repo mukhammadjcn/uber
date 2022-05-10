@@ -1,35 +1,29 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
-export default function HeaderTabs() {
-  const [tab, setTab] = useState("Delivery");
+export default function HeaderTabs({ tab, setTab }) {
   return (
     <>
       <View style={styles.header}>
         {/* Tab 1 */}
-        <HeaderButton name="Delivery" setTab={setTab} tab={tab} />
+        <HeaderButton name="delivery" setTab={setTab} tab={tab} />
 
         {/* Tab 2 */}
-        <HeaderButton name="Pickup" setTab={setTab} tab={tab} />
+        <HeaderButton name="pickup" setTab={setTab} tab={tab} />
       </View>
     </>
   );
 }
 
-const HeaderButton = (props) => {
+const HeaderButton = ({ name, setTab, tab }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => props.setTab(props.name)}
-      style={[styles.tab, props.tab == props.name ? styles.tabActive : ""]}
+      onPress={() => setTab(name)}
+      style={[styles.tab, tab == name ? styles.tabActive : ""]}
     >
-      <Text
-        style={[
-          styles.tab.text,
-          props.tab == props.name ? styles.tabActive.text : "",
-        ]}
-      >
-        {props.name}
+      <Text style={[styles.tab.text, tab == name ? styles.tabActive.text : ""]}>
+        {name}
       </Text>
     </TouchableOpacity>
   );
@@ -51,6 +45,7 @@ const styles = StyleSheet.create({
       color: "black",
       fontSize: 16,
       fontFamily: "Feather",
+      textTransform: "capitalize",
     },
   },
   tabActive: {

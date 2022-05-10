@@ -8,12 +8,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
 import Loading from "../components/Loading";
 import NoData from "../components/NoData";
+import BottomTabs from "../components/BottomTabs";
 
 export default function Home() {
   const [restaurants, setRestaurants] = useState();
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("usa");
   const [loading, setLoading] = useState(false);
+  const [tab, setTab] = useState("delivery");
 
   const getResturantsFromYelp = async (city) => {
     setLoading(true);
@@ -26,7 +28,11 @@ export default function Home() {
           },
         }
       );
-      setRestaurants(data.businesses);
+      setRestaurants(
+        data.businesses.filter((restaurant) =>
+          restaurant.transactions.includes(tab)
+        )
+      );
     } catch {
       setRestaurants([]);
     }
@@ -38,20 +44,21 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getResturantsFromYelp("London");
-  }, []);
+    getResturantsFromYelp("usa");
+  }, [tab]);
 
   return (
     <View style={[styles.body(insets.bottom)]}>
       {/* Header */}
       <View style={styles.main}>
         {/* Header tabs */}
-        <HeaderTabs />
+        <HeaderTabs tab={tab} setTab={setTab} />
 
         {/* Search bar */}
         <SearchBar getQuery={getQuery} />
       </View>
 
+      {/* Body */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}
@@ -70,6 +77,9 @@ export default function Home() {
           <Loading />
         )}
       </ScrollView>
+
+      {/* Bottom navigation */}
+      <BottomTabs />
     </View>
   );
 }
@@ -89,6 +99,6 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   scrollView: {
-    marginVertical: 16,
+    marginTop: 8,
   },
 });
