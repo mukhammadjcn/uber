@@ -62,7 +62,7 @@ function Categories() {
 const styles = StyleSheet.create({
   categories: {
     // backgroundColor: "white",
-    marginVertical: 16,
+    marginBottom: 16,
     paddingHorizontal: 12,
     zIndex: 2,
     elevation: 2,

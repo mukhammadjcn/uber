@@ -52,7 +52,10 @@ export default function Home() {
         <SearchBar getQuery={getQuery} />
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+      >
         {/* Categories list */}
         <Categories />
 
@@ -84,5 +87,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     zIndex: 3,
     elevation: 3,
+  },
+  scrollView: {
+    marginVertical: 16,
   },
 });
