@@ -11,11 +11,12 @@ import NoData from "../components/NoData";
 import BottomTabs from "../components/BottomTabs";
 
 export default function Home() {
-  const [restaurants, setRestaurants] = useState();
   const insets = useSafeAreaInsets();
+  const [restaurants, setRestaurants] = useState();
   const [query, setQuery] = useState("usa");
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState("delivery");
+  const [page, setPage] = useState("Home");
 
   const getResturantsFromYelp = async (city) => {
     setLoading(true);
@@ -79,7 +80,7 @@ export default function Home() {
       </ScrollView>
 
       {/* Bottom navigation */}
-      <BottomTabs />
+      <BottomTabs page={page} setPage={setPage} />
     </View>
   );
 }

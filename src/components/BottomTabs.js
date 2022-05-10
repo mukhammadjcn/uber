@@ -1,8 +1,30 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import React from "react";
 
-export default function BottomTabs() {
+export default function BottomTabs({ page, setPage }) {
+  const navigation = [
+    {
+      icon: "home",
+      text: "Home",
+    },
+    {
+      icon: "search",
+      text: "Search",
+    },
+    {
+      icon: "ios-briefcase",
+      text: "Shopping",
+    },
+    {
+      icon: "receipt",
+      text: "Orders",
+    },
+    {
+      icon: "person-sharp",
+      text: "Account",
+    },
+  ];
   return (
     <View
       style={{
@@ -14,25 +36,25 @@ export default function BottomTabs() {
         justifyContent: "space-between",
       }}
     >
-      <Icon icon="home" text="Home" />
-      <Icon icon="search" text="Search" />
-      <Icon icon="ios-briefcase" text="Shopping" />
-      <Icon icon="receipt" text="Orders" />
-      <Icon icon="person-sharp" text="Account" />
+      {navigation.map((el) => (
+        <Icon icon={el.icon} text={el.text} />
+      ))}
     </View>
   );
 }
 
 const Icon = ({ icon, text }) => (
-  <View>
-    <Ionicons
-      name={icon}
-      size={25}
-      style={{
-        marginBottom: 5,
-        alignSelf: "center",
-      }}
-    />
-    <Text>{text}</Text>
-  </View>
+  <TouchableOpacity activeOpacity={0.8} onPress={() => alert(text)}>
+    <View>
+      <Ionicons
+        name={icon}
+        size={25}
+        style={{
+          marginBottom: 5,
+          alignSelf: "center",
+        }}
+      />
+      <Text>{text}</Text>
+    </View>
+  </TouchableOpacity>
 );
